@@ -7,5 +7,5 @@ def get_students_list(request):
 
 def get_student(request, pk):
     student = get_object_or_404(Student, id=pk)
-    return render(request, 'students/student-details.html', {'student': student})
+    return render(request, 'student-details.html', {'student': student})
 
