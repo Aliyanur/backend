@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+    <a href="/todos/create/" class="btn btn-success btn-custom">Add Todo</a>
+</div>
+
+{% if todos %}
+    <ul class="list-group">
+        {% for todo in todos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center mb-2">
+            <div>
+                <strong>{{ todo.title }}</strong> — {{ todo.due_date }}
+            </div>
+            <div>
+                <a href="/todos/{{ todo.id }}/" class="btn btn-sm btn-outline-primary btn-custom">Details</a>
+                <a href="/todos/{{ todo.id }}/delete" class="btn btn-sm btn-outline-danger btn-custom">Delete</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-muted">Press "Add Todo" to create your first todo!</p>
+{% endif %}
+{% endblock %}

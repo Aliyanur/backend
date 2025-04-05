@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>Edit {{todo.title}}</title>
+
+        <style>
+            .form{
+                width:400px;
+                margin: 0 auto;
+            }
+
+            .field-wrapper{
+                margin-bottom: 10px;
+            }
+
+            .field-wrapper input{
+                height: 32px;
+                border-radius: 4px;
+                border: 1px solid black;
+                width: 100%;
+            }
+
+            .form button{
+                width: 100%;
+                border: none;
+                cursor: pointer;
+                background: blue;
+                border-radius: 4px;
+                height: 32px;
+                color: white;
+            }
+
+            .text-danger{
+                color: red;
+            }
+
+            .button{
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 4px 10px;
+            }
+
+            .delete{
+                background: red;
+                cursor: pointer;
+            }
+
+            .edit{
+                background: blue;
+                cursor: not-allowed;
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+        {% if error|length > 0 %}
+            <p class="text-danger">
+                {{error}}
+            </p>
+        {% endif %}
+
+        <form action="{% url 'edit_todo' pk=todo.id %}" method="POST" class="form">
+    {% csrf_token %}
+    {% for field in form %}
+    {%if field.name != 'category_id'%}
+        <div class="field-wrapper">
+            {{ field.label_tag }}
+            <div>
+                {{ field }}
+                <div class="text-danger">
+                    {{ field.errors }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% endfor %}
+     <div>
+         <label for="category_id" class="from-label">Category</label>
+         <select class="from-select" aria-label="Category" name="category_id" id="category">
+             {% for category in categories %}
+             <option value="{{category.id}}">{{category.title}}</option>
+                <option selected>Open </option>
+                <option value="1">One </option>
+                <option value="2">Two </option>
+                <option value="3">Three </option>
+             {% endfor %}
+            </select>
+     </div>
+    <button type="submit">
+        Save Changes
+    </button>
+</form>
+    </body>
+</html>
